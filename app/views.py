@@ -7,5 +7,11 @@ from app import app
 
 @app.route('/')
 def home():
-    return 'HELLO'
+    return render_template('index.html')
 
+
+@app.route('/login')
+def login():
+    return 'login page not ready'
+
+    
