@@ -1,1 +1,1 @@
-.navbar{background-color:#ffd618}.login-btn{background-color:#299148}body>.container{padding:60px 15px 0}.footer{position:absolute;bottom:0;width:100%;height:60px;line-height:60px}
+@font-face{font-family:"Poppins";src:url("/static/fonts/Poppins/Poppins-Regular.ttf") format("truetype")}html,body{font-family:"Poppins",Roboto,sans-serif}.navbar{background-color:#ffd618}.login-btn{background-color:#299148}body>.d-flex{padding:60px 15px 0}
