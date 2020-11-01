@@ -14,12 +14,30 @@ html,body
     font-family: $family, Roboto, sans-serif
 
 
-.navbar
+.header
     background-color: $yellow
-
 
 .login-btn
     background-color: $green
 
-body > .d-flex
+body > .wave-container
     padding: 60px 15px 0
+
+main > .container
+    padding: 60px 15px 0
+
+.wave-container
+    background-image: url('/static/img/wave.svg')
+    background-size: cover
+    background-position: center
+
+
+
+.description
+    position: relative
+    text-align: center
+
+
+.description > svg
+    position: relative
+    z-index: 1000

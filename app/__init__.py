@@ -14,7 +14,7 @@ load_dotenv(dotenv_path=dotenv_path)
 
 app = Flask(__name__)
 
-
+app.jinja_env.auto_reload = True
 app.config['TEMPLATES_AUTO_RELOAD'] = os.environ['TEMPLATES_AUTO_RELOAD']
 app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
 app.config['DEBUG'] = os.environ['DEBUG']
