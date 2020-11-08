@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JUTC-TMS</title>
+    <title>TaskWind | TMS</title>
 
     <!--BOOTSTRAP-->
     <link
@@ -16,30 +16,29 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/index.css') }}"
     />
+    <!--FONTAWESOME-->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/font-awesome/font-awesome.min.css') }}"
+    />
     {%block css%} {%endblock%}
   </head>
   <body>
-
-    <div {% if request.path == url_for('login') or request.path == '/' %} class="wave-container" {%endif%}>
-
-    {%block header%}
-
-    {% if request.path == url_for('login') or request.path == '/' %} 
+    {%block header%} {% if request.path == url_for('login') or request.path ==
+    '/' %}
     <header>{%include "login_header.html"%}</header>
 
     {%else%}
 
     <header>{%include "header.html"%}</header>
 
-    {%endif%}
-    
-    {%endblock%}
+    {%endif%} {%endblock%}
 
-  </div>
-      <main class="container flex-grow-1">
-        {% block main%}{%endblock%}
-      </main>
-    
+    <div
+      class="{% if request.path == url_for('login') or request.path == '/' %} bg-yellow {%endif%}"
+    >
+      <main class="mt-5">{% block main%}{%endblock%}</main>
+    </div>
 
     <script
       src="{{ url_for('static', filename='js/jquery-3.5.1.min.js') }}"
