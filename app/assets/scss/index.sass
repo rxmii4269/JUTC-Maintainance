@@ -4,17 +4,30 @@ $family: 'Poppins'
     font-family: $family
     src: url('/static/fonts/Poppins/Poppins-Regular.ttf') format('truetype')
 
-$yellow : #ffd618
-$green : #299148
+$gold-web-golden: #ffd618ff
+$spanish-green: #299148ff
+$white: #ffffffff
+$rich-black-fogra-29: #001a23ff
+
+$gradient-top: linear-gradient(0deg, #ffd618ff, #299148ff, #ffffffff, #001a23ff)
+$gradient-right: linear-gradient(90deg, #ffd618ff, #299148ff, #ffffffff, #001a23ff)
+$gradient-bottom: linear-gradient(180deg, #ffd618ff, #299148ff, #ffffffff, #001a23ff)
+$gradient-left: linear-gradient(270deg, #ffd618ff, #299148ff, #ffffffff, #001a23ff)
+$gradient-top-right: linear-gradient(45deg, #ffd618ff, #299148ff, #ffffffff, #001a23ff)
+$gradient-bottom-right: linear-gradient(135deg, #ffd618ff, #299148ff, #ffffffff, #001a23ff)
+$gradient-top-left: linear-gradient(225deg, #ffd618ff, #299148ff, #ffffffff, #001a23ff)
+$gradient-bottom-left: linear-gradient(315deg, #ffd618ff, #299148ff, #ffffffff, #001a23ff)
+$gradient-radial: radial-gradient(#ffd618ff, #299148ff, #ffffffff, #001a23ff)
+
 
 html,body
     font-family: $family, Roboto, sans-serif
 
 .header
-    background-color: $yellow
+    background-color: $gold-web-golden
 
 .login-btn
-    background-color: $green
+    background-color: $spanish-green
 
 main > div
     padding-top: 5rem
@@ -37,10 +50,10 @@ main > div
     color: white
 
 body
-    background-color: $green
+    background-color: $spanish-green
 
 .bg-yellow
-    background-color: $yellow
+    background-color: $gold-web-golden
 
 .rounded-xl
     border-radius: 0.90rem
