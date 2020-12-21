@@ -54,6 +54,6 @@ export default {
   build: {},
 
   router: {
-    middleware: 'users'
+    middleware: ['users']
   },
 }

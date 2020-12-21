@@ -1,7 +1,9 @@
 
 export const state = () => ({
   authenticated: sessionStorage.getItem('authenticated'),
-  users: ""
+  users: "",
+  mechanicTasks: "",
+  electricianTasks:""
 });
 
 export const getters = {
@@ -19,6 +21,9 @@ export const mutations = {
   },
   setAuthenticated(state,authenticated){
     state.authenticated = authenticated;
+  },
+  setMechanicTasks(state,tasks){
+    state.mechanicTasks = tasks;
   }
 };
 
