@@ -1,7 +1,7 @@
 <template>
   <div class="login col-sm-12 col-xl-4 col mr-5 my-5 ml-auto mx-lg-auto">
     <div class="bg-white rounded-xl p-4 py-5 shadow-lg">
-      <form action="" method="post">
+      <form @submit.prevent="login" method="post">
         <div class="form-group">
           <label for="username">Username</label>
           <input
@@ -9,6 +9,7 @@
             class="form-control"
             name="username"
             required
+            v-model="username"
             type="text"
           />
           <small id="emailHelpId" class="form-text text-muted"
@@ -24,7 +25,7 @@
             name="password"
             required=""
             type="password"
-            value=""
+            v-model="password"
           />
         </div>
         <button
@@ -38,3 +39,24 @@
     </div>
   </div>
 </template>
+
+<script>
+
+export default {
+  data(){
+    return {
+      username:"",
+      password:""
+    }
+  },
+  methods:{
+    login: function(){
+      let username = this.username
+      let password = this.password
+      this.$store.dispatch('login',{username,password})
+      .then(()=> this.$router.push('dashboard'))
+      .catch(err=>console.log(err))
+    }
+  }
+}
+</script>

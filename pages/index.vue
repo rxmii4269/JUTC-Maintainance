@@ -23,7 +23,18 @@
 </template>
 
 <script>
-export default {}
+import {mapState} from 'vuex';
+export default {
+   computed: mapState({
+    isAuthenticated: state => state.authenticated
+  }),
+  created(){
+    if(this.isAuthenticated){
+      this.$router.push('dashboard');
+    }
+  }
+  
+}
 </script>
 
 <style scoped>

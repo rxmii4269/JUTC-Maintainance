@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 <template>
   <svg
     id="b0932816-01f4-4b2f-9325-988e94753b3b"

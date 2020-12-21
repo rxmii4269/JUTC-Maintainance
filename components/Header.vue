@@ -1,9 +1,8 @@
 <template>
   <header>
     <nav class="navbar header navbar-expand-lg navbar-light fixed-top">
-      <h1 class="navbar-brand">TaskWind - Task Management System</h1>
-
-      <a class="btn login-btn text-white ml-auto" href="">Logout</a>
+      <h1 class="navbar-brand text-white"><Logo />TaskWind - Task Management System</h1>
+      <Avatar class="ml-auto"/>
     </nav>
   </header>
 </template>
