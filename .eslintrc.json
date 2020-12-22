@@ -5,7 +5,8 @@
         "node": true
     },
     "extends": [
-        "plugin:vue/essential"
+        "plugin:vue/essential",
+        "prettier"
     ],
     "parserOptions": {
         "ecmaVersion": 12,

@@ -29,10 +29,10 @@ export default {
     isAuthenticated: state => state.authenticated
   }),
   created(){
-    if(this.isAuthenticated){
+    if(this.isAuthenticated === 'true'){
       this.$router.push('dashboard');
     }
-  }
+  },
   
 }
 </script>

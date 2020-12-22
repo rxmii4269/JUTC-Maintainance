@@ -2,6 +2,9 @@
   <b-nav>
     <b-avatar></b-avatar>
     <b-nav-item-dropdown id="nav7_ddown" right>
+      <b-dropdown-item>
+        <h6 class="text-capitalize">{{this.currentUser.username}}</h6>
+      </b-dropdown-item>
       <b-dropdown-item
         ><NuxtLink
           class="text-dark"
@@ -23,8 +26,13 @@ export default {
   data() {
     return {};
   },
-  computed: mapState({
+  computed: {
+   ...mapState({
     isAuthenticated: (state) => state.authenticated,
   }),
+  currentUser(){
+    return this.$store.getters.loggedInUser(sessionStorage.getItem('username'))
+  }
+  }
 };
 </script>

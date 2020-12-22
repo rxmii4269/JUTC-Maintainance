@@ -3,15 +3,13 @@ export const state = () => ({
   authenticated: sessionStorage.getItem('authenticated'),
   users: "",
   mechanicTasks: "",
-  electricianTasks:""
+  electricianTasks:"",
+  currentUser:sessionStorage.getItem('username')
 });
 
 export const getters = {
-  isLoggedIn: () => {
-    return "hi";
-  },
   loggedInUser: (state) =>(username)=> {
-    return state.users.find(user=>user.username === username && user.password === password);
+    return state.users.find(user=>user.username === username);
   },
 };
 
@@ -24,14 +22,18 @@ export const mutations = {
   },
   setMechanicTasks(state,tasks){
     state.mechanicTasks = tasks;
+  },
+  setCurrentUser(state,user){
+    state.currentUser = user;
   }
 };
 
 export const actions = {
   login({ getters, commit }, user) {
     if(this.state.users.some(person=>person.username === user.username)){
-      getters.loggedInUser(user.username);
       sessionStorage.setItem('authenticated',true);
+      sessionStorage.setItem('username',user.username);
+      commit('setCurrentUser',sessionStorage.getItem('username'));
       commit('setAuthenticated',sessionStorage.getItem('authenticated'));
     }else{
       throw new Error;
