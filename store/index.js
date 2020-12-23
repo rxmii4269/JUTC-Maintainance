@@ -4,7 +4,8 @@ export const state = () => ({
   users: "",
   mechanicTasks: "",
   electricianTasks:"",
-  currentUser:sessionStorage.getItem('username')
+  currentUser:sessionStorage.getItem('username'),
+  statuses: ['To Do','Doing','Done']
 });
 
 export const getters = {
@@ -36,7 +37,7 @@ export const actions = {
       commit('setCurrentUser',sessionStorage.getItem('username'));
       commit('setAuthenticated',sessionStorage.getItem('authenticated'));
     }else{
-      throw new Error;
+      commit('setAuthenticated',sessionStorage.setItem('authenticated',false))
     }
    
   },

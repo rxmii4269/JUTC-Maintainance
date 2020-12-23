@@ -36,3 +36,9 @@ export default {
   }
 };
 </script>
+
+<style>
+#nav7_ddown__BV_toggle_{
+  color: #ffffff;
+}
+</style>

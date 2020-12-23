@@ -14,5 +14,22 @@
       "username": "mechanic1",
       "password":"mechanic1",
       "role":"mechanic"
+  },
+  {
+    "id":3,
+    "firstname":"Bob",
+    "lastname":"Stone",
+    "username":"bobstone211",
+    "password":"bobstone211",
+    "role":"electrician"
+
+  },
+  {
+    "id":4,
+    "firstname":"Janet",
+    "lastname": "Jones",
+    "username":"janetjones100",
+    "password":"janetjones100",
+    "role":"custodian"
   }
 ]
