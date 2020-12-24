@@ -26,10 +26,61 @@
         <b-row>
           <b-col cols="8">
             <b-card class="mb-3 border-0">
-              <p>Assigned To: {{ this.assignee }}</p>
-              <p>Description: {{ this.description }}</p>
+              <b-card-title title-tag="h6" class="text-muted"
+                >Assigned To</b-card-title
+              >
+              <b-avatar-group class="mb-4">
+                <b-avatar variant="success"></b-avatar>
+              </b-avatar-group>
+              <b-card-sub-title>Description</b-card-sub-title>
+              <p>{{ this.description }}</p>
             </b-card>
-            <b-card title="Activity" title-tag="h6" class="border-0">
+            <b-card
+              v-if="this.attachments.length < 1"
+              class="mb-3 border-0"
+              body-class="pt-1"
+            >
+              <b-card-title title-tag="h6" class="text-uppercase text-muted">
+                <font-awesome-icon :icon="['fa', 'paperclip']" /> Attachments
+              </b-card-title>
+              <b-container fluid>
+                <b-row cols="3">
+                  <b-col
+                    v-for="(imgurl, index) in url"
+                    :key="index"
+                    class="mb-2"
+                  >
+                    <b-img-lazy
+                      fluid
+                      thumbnail
+                      :src="imgurl"
+                      :alt="files[index].name"
+                      :title="files[index].name"
+                      width="150"
+                      height="150"
+                    ></b-img-lazy>
+                  </b-col>
+                  <b-col
+                    v-for="(attachment, index) in this.attachments"
+                    :key="index"
+                  >
+                    <b-img
+                      fluid
+                      thumbnail
+                      :src="attachment"
+                      width="150"
+                      height="150"
+                      :alt="attachment"
+                    ></b-img>
+                  </b-col>
+                </b-row>
+              </b-container>
+            </b-card>
+            <b-card class="border-0">
+              <b-card-title title-tag="h6" class="text-muted text-uppercase"
+                ><font-awesome-icon :icon="['fa', 'comment-alt']" />
+                Comments</b-card-title
+              >
               <b-textarea placeholder="Write a comment" size="sm"> </b-textarea>
             </b-card>
           </b-col>
@@ -38,7 +89,7 @@
               <b-card-title
                 title="Add to Task"
                 title-tag="h6"
-                class="text-uppercase pl-3"
+                class="text-uppercase pl-3 text-muted"
               ></b-card-title>
               <b-col>
                 <b-dropdown
@@ -53,15 +104,21 @@
                     {{ member.username }}
                   </b-dropdown-item>
                 </b-dropdown>
-                <b-dropdown
-                  text="Attachment"
-                  size="sm"
-                  block
-                  no-caret
-                  class="mb-3"
-                  variant="outline-dark"
-                ></b-dropdown>
-                <label for="example-input">Due Date:</label>
+
+                <label
+                  class="custom-file-upload btn btn-outline-dark btn-block btn-sm"
+                >
+                  <input
+                    type="file"
+                    class="d-none"
+                    @change="previewFiles"
+                    ref="myFiles"
+                    accept=".jpg, .png, .webp"
+                    multiple
+                  />
+                  <font-awesome-icon :icon="['fa', 'paperclip']" /> Attachment
+                </label>
+                <label for="example-input">Due Date</label>
                 <b-input-group class="mb-3" size="sm">
                   <b-form-input
                     id="example-input"
@@ -92,7 +149,7 @@
               <b-card-title
                 title="Actions"
                 title-tag="h6"
-                class="text-uppercase pl-3"
+                class="text-uppercase pl-3 text-muted"
               ></b-card-title>
               <b-col>
                 <b-dropdown
@@ -126,6 +183,8 @@
 </template>
 
 <script>
+// import { writeFile } from 'fs-web';
+let self = this;
 export default {
   props: {
     title: {
@@ -160,14 +219,16 @@ export default {
       default: "2020-09-12",
     },
     attachments: {
-      type: Object,
+      type: Array,
       default() {
-        return { attachments: [] };
+        return [];
       },
     },
     assignee: {
-      type: String,
-      default: "",
+      type: Array,
+      default(){
+        return []
+      },
     },
     assigner: {
       type: String,
@@ -187,22 +248,40 @@ export default {
       isHovered: false,
       statuses: this.$store.state.statuses,
       members: this.$store.state.users,
+      hasAttachment: false,
+      files: [],
+      url: [],
+      taskAssignee: this.assignee
     };
+  },
+  computed:{
+    taskMembers(){
+      return this.members.find(member=>member.username === this.assignee);
+    }
   },
   methods: {
     showModal() {
-      this.$refs["taskModal"].show();
+      this.$refs.taskModal.show();
     },
     hideModal() {
-      this.$refs["taskModal"].hide();
+      this.$refs.taskModal.hide();
     },
     onContext(ctx) {
       this.selected = ctx.selectedYMD;
-      console.log(this.selected);
+      // console.log(this.selected);
     },
     handleHover(hovered) {
       this.isHovered = hovered;
     },
+    previewFiles() {
+      this.files = this.$refs.myFiles.files;
+
+      this.files.forEach((file, index) => {
+        const url = URL.createObjectURL(this.files[index]);
+        this.url.push(url);
+      });
+    },
+    
   },
 };
 </script>

@@ -51,9 +51,10 @@ export default {
   axios: {},
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {},
+  build: {
+  },
 
   router: {
-    middleware: ['users']
+    middleware: ['users'],
   },
-}
+};

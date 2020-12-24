@@ -41,22 +41,21 @@
 </template>
 
 <script>
-
 export default {
-  data(){
+  data() {
     return {
-      username:"",
-      password:""
-    }
+      username: '',
+      password: '',
+    };
   },
-  methods:{
-    login: function(){
-      let username = this.username
-      let password = this.password
-      this.$store.dispatch('login',{username,password})
-      .then(()=> this.$router.push('dashboard'))
-      .catch(err=>console.log(err))
-    }
-  }
-}
+  methods: {
+    login() {
+      const { username } = this;
+      const { password } = this;
+      this.$store
+        .dispatch('login', { username, password })
+        .then(() => this.$router.push('dashboard'));
+    },
+  },
+};
 </script>

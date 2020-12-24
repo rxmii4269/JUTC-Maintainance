@@ -21,19 +21,20 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
+import { mapState } from 'vuex';
+
 export default {
   data() {
     return {};
   },
   computed: {
-   ...mapState({
-    isAuthenticated: (state) => state.authenticated,
-  }),
-  currentUser(){
-    return this.$store.getters.loggedInUser(sessionStorage.getItem('username'))
-  }
-  }
+    ...mapState({
+      isAuthenticated: (state) => state.authenticated,
+    }),
+    currentUser() {
+      return this.$store.getters.loggedInUser(sessionStorage.getItem('username'));
+    },
+  },
 };
 </script>
 

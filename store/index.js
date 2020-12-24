@@ -1,46 +1,49 @@
-
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-shadow */
 export const state = () => ({
   authenticated: sessionStorage.getItem('authenticated'),
-  users: "",
-  mechanicTasks: "",
-  electricianTasks:"",
-  currentUser:sessionStorage.getItem('username'),
-  statuses: ['To Do','Doing','Done']
+  users: '',
+  mechanicTasks: '',
+  electricianTasks: '',
+  custodianTasks:'',
+  currentUser: sessionStorage.getItem('username'),
+  statuses: ['To Do', 'Doing', 'Done'],
 });
 
 export const getters = {
-  loggedInUser: (state) =>(username)=> {
-    return state.users.find(user=>user.username === username);
-  },
+  loggedInUser: (state) => (username) => state.users.find((user) => user.username === username),
 };
 
 export const mutations = {
   setUsers(state, users) {
     state.users = users;
   },
-  setAuthenticated(state,authenticated){
+  setAuthenticated(state, authenticated) {
     state.authenticated = authenticated;
   },
-  setMechanicTasks(state,tasks){
+  setMechanicTasks(state, tasks) {
     state.mechanicTasks = tasks;
   },
-  setCurrentUser(state,user){
+  setElectricianTasks(state,tasks){
+    state.electricianTasks = tasks;
+  },
+  setCustodianTasks(state,tasks){
+    state.custodianTasks = tasks;
+  },
+  setCurrentUser(state, user) {
     state.currentUser = user;
-  }
+  },
 };
 
 export const actions = {
   login({ getters, commit }, user) {
-    if(this.state.users.some(person=>person.username === user.username)){
-      sessionStorage.setItem('authenticated',true);
-      sessionStorage.setItem('username',user.username);
-      commit('setCurrentUser',sessionStorage.getItem('username'));
-      commit('setAuthenticated',sessionStorage.getItem('authenticated'));
-    }else{
-      commit('setAuthenticated',sessionStorage.setItem('authenticated',false))
+    if (this.state.users.some((person) => person.username === user.username)) {
+      sessionStorage.setItem('authenticated', true);
+      sessionStorage.setItem('username', user.username);
+      commit('setCurrentUser', sessionStorage.getItem('username'));
+      commit('setAuthenticated', sessionStorage.getItem('authenticated'));
+    } else {
+      commit('setAuthenticated', sessionStorage.setItem('authenticated', false));
     }
-   
   },
 };
-
-
