@@ -2,9 +2,9 @@
     {
         "title": "Bus Work",
         "id":"M01",
-        "assignee": "",
+        "assignee": [],
         "assigner": "",
-        "status": "todo",
+        "status": "To Do",
         "description": "",
         "duedate":"2020-12-09",
         "created":"",
@@ -25,9 +25,9 @@
     {
         "title":"Install Engine",
         "id":"M02",
-        "assignee":"",
+        "assignee":[],
         "assigner":"",
-        "status":"doing",
+        "status":"Doing",
         "description":"",
         "created":"",
         "updated":"",

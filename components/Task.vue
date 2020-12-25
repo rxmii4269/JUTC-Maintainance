@@ -16,6 +16,8 @@
     </b-card>
 
     <b-modal
+      ok-title="Save"
+      @ok="submitModal"
       ref="taskModal"
       :title="this.id + ':' + this.title"
       header-class="text-capitalize"
@@ -26,17 +28,32 @@
         <b-row>
           <b-col cols="8">
             <b-card class="mb-3 border-0">
-              <b-card-title title-tag="h6" class="text-muted"
+              <b-card-title
+                title-tag="h6"
+                class="text-muted text-uppercase"
+                v-if="this.assignee.length > 0"
                 >Assigned To</b-card-title
               >
-              <b-avatar-group class="mb-4">
-                <b-avatar variant="success"></b-avatar>
+              <b-avatar-group
+                class="mb-4"
+                v-if="this.assignee.length > 0"
+                size="50px"
+              >
+                <b-avatar
+                  variant="primary"
+                  v-for="member in taskMembers"
+                  :key="member.id"
+                  :text="member.firstname[0] + member.lastname[0]"
+                  :title="member.username"
+                ></b-avatar>
               </b-avatar-group>
-              <b-card-sub-title>Description</b-card-sub-title>
+              <b-card-sub-title class="text-uppercase"
+                >Description</b-card-sub-title
+              >
               <p>{{ this.description }}</p>
             </b-card>
             <b-card
-              v-if="this.attachments.length < 1"
+              v-if="this.attachments.length > 0 || this.url.length > 0"
               class="mb-3 border-0"
               body-class="pt-1"
             >
@@ -44,22 +61,24 @@
                 <font-awesome-icon :icon="['fa', 'paperclip']" /> Attachments
               </b-card-title>
               <b-container fluid>
-                <b-row cols="3">
-                  <b-col
-                    v-for="(imgurl, index) in url"
+                <b-row>
+                  <b-row
+                    v-for="(file, index) in files"
                     :key="index"
                     class="mb-2"
                   >
-                    <b-img-lazy
-                      fluid
-                      thumbnail
-                      :src="imgurl"
-                      :alt="files[index].name"
-                      :title="files[index].name"
-                      width="150"
-                      height="150"
-                    ></b-img-lazy>
-                  </b-col>
+                    <b-col v-for="(img, index) in file" :key="index">
+                      <b-img-lazy
+                        fluid
+                        thumbnail
+                        :src="url[index]"
+                        :alt="img.name"
+                        :title="img.name"
+                        width="200"
+                        height="200"
+                      ></b-img-lazy>
+                    </b-col>
+                  </b-row>
                   <b-col
                     v-for="(attachment, index) in this.attachments"
                     :key="index"
@@ -152,21 +171,19 @@
                 class="text-uppercase pl-3 text-muted"
               ></b-card-title>
               <b-col>
-                <b-dropdown
-                  text="Status"
-                  size="sm"
-                  block
-                  no-caret
-                  class="mb-3"
-                  variant="outline-dark"
-                >
-                  <b-dropdown-item
+                <b-form-select v-model="selectedStatus" size="sm">
+                  <b-form-select-option :value="null"
+                  disabled
+                    >Change Status</b-form-select-option
+                  >
+                  <b-form-select-option
                     v-for="status in this.statuses"
-                    :key="status"
+                    :key="status.index"
+                    :value="status"
                   >
                     {{ status }}
-                  </b-dropdown-item>
-                </b-dropdown>
+                  </b-form-select-option>
+                </b-form-select>
               </b-col>
             </b-card>
             <b-card class="border-0">
@@ -226,8 +243,8 @@ export default {
     },
     assignee: {
       type: Array,
-      default(){
-        return []
+      default() {
+        return [];
       },
     },
     assigner: {
@@ -247,17 +264,14 @@ export default {
       selected: "",
       isHovered: false,
       statuses: this.$store.state.statuses,
-      members: this.$store.state.users,
+      taskMembers: [],
       hasAttachment: false,
       files: [],
       url: [],
-      taskAssignee: this.assignee
+      members: this.$store.state.users,
+      selectedStatus: this.status,
+      member: "",
     };
-  },
-  computed:{
-    taskMembers(){
-      return this.members.find(member=>member.username === this.assignee);
-    }
   },
   methods: {
     showModal() {
@@ -266,6 +280,7 @@ export default {
     hideModal() {
       this.$refs.taskModal.hide();
     },
+    submitModal() {},
     onContext(ctx) {
       this.selected = ctx.selectedYMD;
       // console.log(this.selected);
@@ -274,14 +289,22 @@ export default {
       this.isHovered = hovered;
     },
     previewFiles() {
-      this.files = this.$refs.myFiles.files;
-
-      this.files.forEach((file, index) => {
-        const url = URL.createObjectURL(this.files[index]);
-        this.url.push(url);
+      this.url = [];
+      this.files.push(this.$refs.myFiles.files);
+      console.log(this.files);
+      this.files.forEach((file) => {
+        file.forEach((f) => {
+          const url = URL.createObjectURL(f);
+          console.log(url);
+          this.url.push(url);
+        });
       });
     },
-    
+  },
+  mounted: function () {
+    this.assignee.forEach((assignee) => {
+      this.taskMembers.push(this.$store.getters.getTaskMembers(assignee));
+    });
   },
 };
 </script>
