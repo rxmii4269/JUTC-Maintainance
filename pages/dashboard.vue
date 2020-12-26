@@ -5,9 +5,9 @@
 </template>
 
 <script>
-import mechanicTasks from "@/data/mechanicTasks.json";
-import electricianTasks from "@/data/electricianTasks.json";
-import custodianTasks from "@/data/custodianTasks.json";
+import {mechanicTasks} from "@/data/mechanicTasks.json";
+import {electricianTasks} from "@/data/electricianTasks.json";
+import {custodianTasks} from "@/data/custodianTasks.json";
 
 export default {
   middleware({ store, redirect }) {

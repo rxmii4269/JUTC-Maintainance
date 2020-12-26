@@ -1,47 +1,39 @@
-[
+{
+  "mechanicTasks": [
     {
-        "title": "Bus Work",
-        "id":"M01",
-        "assignee": ["mechanic1","bobstone211"],
-        "assigner": "",
-        "status": "To Do",
-        "description": "Please fix",
-        "duedate":"2020-12-24",
-        "created":"2020-11-10",
-        "updated":"",
-        "priority":"",
-        "comments":
-        [
-            {
-                "madeBy":1,
-                "comment":"Will do"
-            },
-            {
-                "madeBy":2,
-                "comment": "Still not done"
-            }
-        ]
+      "title": "Bus Work",
+      "id": "M01",
+      "assignee": ["mechanic1", "bobstone211"],
+      "assigner": "",
+      "status": "To Do",
+      "description": "Please fix",
+      "duedate": "2020-12-24",
+      "created": "2020-11-10",
+      "updated": "",
+      "priority": "",
+      "comments": [
+        {
+          "madeBy": 1,
+          "comment": "Will do"
+        },
+        {
+          "madeBy": 2,
+          "comment": "Still not done"
+        }
+      ]
     },
     {
-        "title":"Install Engine",
-        "id":"M02",
-        "assignee":[],
-        "assigner":"",
-        "status":"Doing",
-        "description":"",
-        "created":"",
-        "updated":"",
-        "priority":"",
-        "comments":
-        [
-            {
-                
-            }
-
-        ]
-
+      "title": "Install Engine",
+      "id": "M02",
+      "assignee": [],
+      "assigner": "",
+      "status": "Doing",
+      "description": "",
+      "created": "",
+      "updated": "",
+      "priority": "",
+      "comments": [{}]
     },
-    {
-
-    }
-]
+    {}
+  ]
+}

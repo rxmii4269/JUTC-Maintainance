@@ -40,7 +40,7 @@ export const mutations = {
 };
 
 export const actions = {
-  login({ getters, commit }, user) {
+  login({ commit }, user) {
     if (this.state.users.some((person) => person.username === user.username)) {
       sessionStorage.setItem("authenticated", true);
       sessionStorage.setItem("username", user.username);

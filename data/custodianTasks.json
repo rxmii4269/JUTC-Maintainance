@@ -1,47 +1,39 @@
-[
+{
+  "custodianTasks": [
     {
-        "title": "Bus Work",
-        "id":"M01",
-        "assignee": [],
-        "assigner": "",
-        "status": "To Do",
-        "description": "",
-        "duedate":"2020-12-09",
-        "created":"",
-        "updated":"",
-        "priority":"",
-        "comments":
-        [
-            {
-                "madeBy":1,
-                "comment":"Will do"
-            },
-            {
-                "madeBy":2,
-                "comment": "Still not done"
-            }
-        ]
+      "title": "Bus Work",
+      "id": "M01",
+      "assignee": [],
+      "assigner": "",
+      "status": "To Do",
+      "description": "",
+      "duedate": "2020-12-09",
+      "created": "",
+      "updated": "",
+      "priority": "",
+      "comments": [
+        {
+          "madeBy": 1,
+          "comment": "Will do"
+        },
+        {
+          "madeBy": 2,
+          "comment": "Still not done"
+        }
+      ]
     },
     {
-        "title":"Install Engine",
-        "id":"M02",
-        "assignee":[],
-        "assigner":"",
-        "status":"Doing",
-        "description":"",
-        "created":"",
-        "updated":"",
-        "priority":"",
-        "comments":
-        [
-            {
-                
-            }
-
-        ]
-
+      "title": "Install Engine",
+      "id": "M02",
+      "assignee": [],
+      "assigner": "",
+      "status": "Doing",
+      "description": "",
+      "created": "",
+      "updated": "",
+      "priority": "",
+      "comments": [{}]
     },
-    {
-
-    }
-]
+    {}
+  ]
+}
