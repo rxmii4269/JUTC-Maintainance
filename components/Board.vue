@@ -13,10 +13,11 @@
           :date="task.duedate"
           :assignee="task.assignee"
         />
-        <b-button block variant="light" size="sm"
-          ><font-awesome-icon :icon="['fa', 'plus']" /> Add another
-          Task</b-button
+        <b-button v-b-modal.addMech-todo block variant="light" size="sm"
+          ><font-awesome-icon :icon="['fa', 'plus']" /> Add
+          <span v-if="mechanicsTodo.length > 0">another</span> Task</b-button
         >
+        <b-modal id="addMech-todo"></b-modal>
       </div>
       <div v-if="electricianTodo && this.tab === 'Electronics'">
         <Task
@@ -30,10 +31,11 @@
           :date="task.duedate"
           :assignee="task.assignee"
         />
-        <b-button block variant="light" size="sm"
-          ><font-awesome-icon :icon="['fa', 'plus']" /> Add another
-          Task</b-button
+        <b-button v-b-modal.addElec-todo block variant="light" size="sm"
+          ><font-awesome-icon :icon="['fa', 'plus']" /> Add
+          <span v-if="electricianTodo.length > 0">another</span> Task</b-button
         >
+        <b-modal id="addElec-todo"></b-modal>
       </div>
       <div v-if="custodianTodo && this.tab === 'Custodian'">
         <Task
@@ -47,10 +49,11 @@
           :date="task.duedate"
           :assignee="task.assignee"
         />
-        <b-button block variant="light" size="sm"
-          ><font-awesome-icon :icon="['fa', 'plus']" /> Add another
-          Task</b-button
+        <b-button v-b-modal.addCust-todo block variant="light" size="sm"
+          ><font-awesome-icon :icon="['fa', 'plus']" /> Add
+          <span v-if="custodianTodo.length > 0">another</span> Task</b-button
         >
+        <b-modal id="addCust-todo"></b-modal>
       </div>
     </b-card>
     <b-card title="Doing" title-tag="h5" class="shadow" body-class="pt-2">
@@ -66,10 +69,11 @@
           :date="task.duedate"
           :assignee="task.assignee"
         />
-        <b-button block variant="light" size="sm"
-          ><font-awesome-icon :icon="['fa', 'plus']" /> Add another
-          Task</b-button
+        <b-button v-b-modal.addMech-doing block variant="light" size="sm"
+          ><font-awesome-icon :icon="['fa', 'plus']" /> Add
+          <span v-if="mechanicsDoing.length > 0">another</span> Task</b-button
         >
+        <b-modal id="addMech-doing"></b-modal>
       </div>
       <div v-if="electricianDoing && this.tab === 'Electronics'">
         <Task
@@ -83,10 +87,11 @@
           :date="task.duedate"
           :assignee="task.assignee"
         />
-        <b-button block variant="light" size="sm"
-          ><font-awesome-icon :icon="['fa', 'plus']" /> Add another
-          Task</b-button
+        <b-button v-b-modal.addElec-doing block variant="light" size="sm"
+          ><font-awesome-icon :icon="['fa', 'plus']" /> Add
+          <span v-if="electricianDoing.length > 0">another</span> Task</b-button
         >
+        <b-modal id="addElec-doing"></b-modal>
       </div>
       <div v-if="custodianDoing && this.tab === 'Custodian'">
         <Task
@@ -100,10 +105,11 @@
           :date="task.duedate"
           :assignee="task.assignee"
         />
-        <b-button block variant="light" size="sm"
-          ><font-awesome-icon :icon="['fa', 'plus']" /> Add another
-          Task</b-button
+        <b-button v-b-modal.addCust-doing block variant="light" size="sm"
+          ><font-awesome-icon :icon="['fa', 'plus']" /> Add
+          <span v-if="custodianDoing.length > 0">another</span> Task</b-button
         >
+        <b-modal id="addCust-doing"></b-modal>
       </div>
     </b-card>
     <b-card title="Done" title-tag="h5" class="shadow" body-class="pt-2">
@@ -119,10 +125,11 @@
           :date="task.duedate"
           :assignee="task.assignee"
         />
-        <b-button block variant="light" size="sm"
-          ><font-awesome-icon :icon="['fa', 'plus']" /> Add another
-          Task</b-button
+        <b-button v-b-modal.addMech-done block variant="light" size="sm"
+          ><font-awesome-icon :icon="['fa', 'plus']" /> Add
+          <span v-if="mechanicsDone.length > 0">another</span> Task</b-button
         >
+        <b-modal id="addMech-done"></b-modal>
       </div>
       <div v-if="electricianDone && this.tab === 'Electronics'">
         <Task
@@ -136,10 +143,11 @@
           :date="task.duedate"
           :assignee="task.assignee"
         />
-        <b-button block variant="light" size="sm"
-          ><font-awesome-icon :icon="['fa', 'plus']" /> Add another
-          Task</b-button
+        <b-button v-b-modal.addElec-done block variant="light" size="sm"
+          ><font-awesome-icon :icon="['fa', 'plus']" /> Add
+          <span v-if="electricianDone.length > 0">another</span> Task</b-button
         >
+        <b-modal id="addElec-done"></b-modal>
       </div>
       <div v-if="custodianDone && this.tab === 'Custodian'">
         <Task
@@ -153,10 +161,11 @@
           :date="task.duedate"
           :assignee="task.assignee"
         />
-        <b-button block variant="light" size="sm"
-          ><font-awesome-icon :icon="['fa', 'plus']" /> Add another
-          Task</b-button
+        <b-button v-b-modal.addCust-done block variant="light" size="sm"
+          ><font-awesome-icon :icon="['fa', 'plus']" /> Add
+          <span v-if="custodianDone.length > 0">another</span> Task</b-button
         >
+        <b-modal id="addCust-done"></b-modal>
       </div>
     </b-card>
   </b-card-group>
