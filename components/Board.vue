@@ -69,7 +69,10 @@
                 required
               ></b-form-textarea>
             </b-form-group>
-            <b-form-group :state="mechTodoMemberState" invalid-feedback="You must assign task to at least one member">
+            <b-form-group
+              :state="mechTodoMemberState"
+              invalid-feedback="You must assign task to at least one member"
+            >
               <label for="mechTodoMember" class="d-block"
                 ><font-awesome-icon :icon="['fa', 'users']" /> Assign To</label
               >
@@ -134,7 +137,108 @@
           ><font-awesome-icon :icon="['fa', 'plus']" /> Add
           <span v-if="electricianTodo.length > 0">another</span> Task</b-button
         >
-        <b-modal id="addElec-todo"></b-modal>
+        <b-modal
+          id="addElec-todo"
+          centered
+          title="Add Task"
+          ok-variant="success"
+          ok-title="Save"
+          cancel-variant="danger"
+          @ok="handleElecTodo"
+          @show="resetElecTodo"
+          @hidden="resetElecTodo"
+        >
+          <b-form
+            v-if="elecTodoShow"
+            ref="elecTodoForm"
+            @submit.stop.prevent="submitElecTodo"
+          >
+            <b-form-group
+              description="Give it a catchy name."
+              :state="elecTodoNameState"
+              invalid-feedback="Task Name is required"
+            >
+              <label for="title" class="d-block"
+                ><font-awesome-icon :icon="['fa', 'align-justify']" />
+                Title</label
+              >
+              <b-form-input
+                id="title"
+                v-model="elecTodoForm.title"
+                required
+                type="text"
+                placeholder="' Change Oil Filter '"
+                size="sm"
+                :state="elecTodoNameState"
+              ></b-form-input>
+            </b-form-group>
+            <b-form-group
+              :state="elecTodoDescriptionState"
+              invalid-feedback="Description is required"
+            >
+              <label for="description" class="d-block"
+                ><font-awesome-icon :icon="['fa', 'align-right']" />
+                Description</label
+              >
+              <b-form-textarea
+                v-model="elecTodoForm.description"
+                id="description"
+                size="sm"
+                :state="elecTodoDescriptionState"
+                required
+              ></b-form-textarea>
+            </b-form-group>
+            <b-form-group
+              :state="elecTodoMemberState"
+              invalid-feedback="You must assign task to at least one member"
+            >
+              <label for="elecTodoMember" class="d-block"
+                ><font-awesome-icon :icon="['fa', 'users']" /> Assign To</label
+              >
+              <b-form-select
+                v-model="elecTodoForm.members"
+                :state="elecTodoMemberState"
+                id="elecTodoMember"
+                required
+                multiple
+                :select-size="4"
+              >
+                <b-form-select-option :value="null" disabled>
+                  Please select a Member
+                </b-form-select-option>
+                <b-form-select-option
+                  v-for="member in members"
+                  :key="member.id"
+                  :value="member.username"
+                  >{{ member.username }}</b-form-select-option
+                >
+              </b-form-select>
+            </b-form-group>
+            <b-form-group>
+              <label for="elecTodoAttachments" class="d-block"
+                ><font-awesome-icon :icon="['fa', 'paperclip']" /> Add
+                Attachments</label
+              >
+              <b-form-file multiple id="elecTodoAttachments"></b-form-file>
+            </b-form-group>
+
+            <b-form-group>
+              <label for="elecTodoDueDate"
+                ><font-awesome-icon :icon="['fa', 'clock']" /> Due Date</label
+              >
+              <b-form-datepicker
+                v-model="elecTodoForm.dueDate"
+                id="elecTodoDueDate"
+                right
+                locale="en-US"
+                today-button
+                reset-button
+                close-button
+                :state="elecTodoDueDateState"
+              ></b-form-datepicker>
+            </b-form-group>
+          </b-form>
+        </b-modal>
       </div>
       <div v-if="custodianTodo && this.tab === 'Custodian'">
         <Task
@@ -281,12 +385,25 @@ export default {
         dueDate: "",
         created: "",
       },
+      elecTodoForm: {
+        title: "",
+        description: "",
+        members: null,
+        attachments: "",
+        dueDate: "",
+        created: "",
+      },
       mechTodoNameState: null,
       mechTodoDescriptionState: null,
       mechTodoMemberState: null,
       mechTodoDueDateState: null,
+      elecTodoNameState: null,
+      elecTodoDescriptionState: null,
+      elecTodoMemberState: null,
+      elecTodoDueDateState: null,
       members: this.$store.state.users,
       mechTodoShow: true,
+      elecTodoShow: true,
     };
   },
   props: {
@@ -374,9 +491,21 @@ export default {
       this.mechTodoDueDateState = valid;
       return valid;
     },
+    elecTodoFormValidity(){
+      const valid = this.$refs.elecTodoForm.checkValidity();
+      this.elecTodoNameState = valid;
+      this.elecTodoDescriptionState = valid;
+      this.elecTodoMemberState = valid;
+      this.elecTodoDueDateState = valid;
+      return valid;
+    },
     handleMechTodo(bvModalEvt) {
       bvModalEvt.preventDefault();
       this.submitMechTodo();
+    },
+    handleElecTodo(bvModalEvt) {
+      bvModalEvt.preventDefault();
+      this.submitElecTodo();
     },
     submitMechTodo() {
       if (!this.mechTodoFormValidity()) {
@@ -389,6 +518,19 @@ export default {
       console.log(JSON.stringify(this.mechTodoForm));
       this.$nextTick(() => {
         this.$bvModal.hide("addMech-todo");
+      });
+    },
+    submitElecTodo() {
+      if (!this.elecTodoFormValidity()) {
+        return;
+      }
+      let currentDate = new Date();
+      this.elecTodoForm.created = `${currentDate.getFullYear()}-${
+        currentDate.getMonth() + 1
+      }-${currentDate.getDate()}`;
+      console.log(JSON.stringify(this.elecTodoForm));
+      this.$nextTick(() => {
+        this.$bvModal.hide("addElec-todo");
       });
     },
     resetMechTodo() {
@@ -405,6 +547,22 @@ export default {
       this.mechTodoShow = false;
       this.$nextTick(() => {
         this.mechTodoShow = true;
+      });
+    },
+    resetElecTodo() {
+      this.elecTodoForm.title = "";
+      this.elecTodoForm.description = "";
+      this.elecTodoForm.members = null;
+      this.elecTodoForm.attachments = null;
+      this.elecTodoForm.dueDate = "";
+      this.elecTodoForm.created = "";
+      this.elecTodoNameState = null;
+      this.elecTodoDescriptionState = null;
+      this.elecTodoMemberState = null;
+      this.elecTodoDueDateState = null;
+      this.elecTodoShow = false;
+      this.$nextTick(() => {
+        this.elecTodoShow = true;
       });
     },
   },
