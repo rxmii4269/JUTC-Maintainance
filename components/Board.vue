@@ -17,7 +17,106 @@
           ><font-awesome-icon :icon="['fa', 'plus']" /> Add
           <span v-if="mechanicsTodo.length > 0">another</span> Task</b-button
         >
-        <b-modal id="addMech-todo"></b-modal>
+        <b-modal
+          ref="addMech-todo"
+          centered
+          id="addMech-todo"
+          title="Add Task"
+          ok-variant="success"
+          ok-title="Save"
+          cancel-variant="danger"
+          @ok="handleMechTodo"
+          @show="resetMechTodo"
+          @hidden="resetMechTodo"
+        >
+          <b-form
+            v-if="mechTodoShow"
+            ref="mechTodoForm"
+            @submit.stop.prevent="submitMechTodo"
+          >
+            <b-form-group
+              description="Give it a catchy name."
+              :state="mechTodoNameState"
+              invalid-feedback="Task Name is required"
+            >
+              <label for="title" class="d-block"
+                ><font-awesome-icon :icon="['fa', 'align-justify']" />
+                Title</label
+              >
+              <b-form-input
+                id="title"
+                v-model="mechTodoForm.title"
+                required
+                type="text"
+                placeholder="' Change Oil Filter '"
+                size="sm"
+                :state="mechTodoNameState"
+              ></b-form-input>
+            </b-form-group>
+            <b-form-group
+              :state="mechTodoDescriptionState"
+              invalid-feedback="Description is required"
+            >
+              <label for="description" class="d-block"
+                ><font-awesome-icon :icon="['fa', 'align-right']" />
+                Description</label
+              >
+              <b-form-textarea
+                v-model="mechTodoForm.description"
+                id="description"
+                size="sm"
+                :state="mechTodoDescriptionState"
+                required
+              ></b-form-textarea>
+            </b-form-group>
+            <b-form-group :state="mechTodoMemberState" invalid-feedback="You must assign task to at least one member">
+              <label for="mechTodoMember" class="d-block"
+                ><font-awesome-icon :icon="['fa', 'users']" /> Assign To</label
+              >
+              <b-form-select
+                v-model="mechTodoForm.members"
+                :state="mechTodoMemberState"
+                id="mechTodoMember"
+                required
+                multiple
+                :select-size="4"
+              >
+                <b-form-select-option :value="null" disabled>
+                  Please select a Member
+                </b-form-select-option>
+                <b-form-select-option
+                  v-for="member in members"
+                  :key="member.id"
+                  :value="member.username"
+                  >{{ member.username }}</b-form-select-option
+                >
+              </b-form-select>
+            </b-form-group>
+            <b-form-group>
+              <label for="mechTodoAttachments" class="d-block"
+                ><font-awesome-icon :icon="['fa', 'paperclip']" /> Add
+                Attachments</label
+              >
+              <b-form-file multiple id="mechTodoAttachments"></b-form-file>
+            </b-form-group>
+
+            <b-form-group>
+              <label for="mechTodoDueDate"
+                ><font-awesome-icon :icon="['fa', 'clock']" /> Due Date</label
+              >
+              <b-form-datepicker
+                v-model="mechTodoForm.dueDate"
+                id="mechTodoDueDate"
+                right
+                locale="en-US"
+                today-button
+                reset-button
+                close-button
+                :state="mechTodoDueDateState"
+              ></b-form-datepicker>
+            </b-form-group>
+          </b-form>
+        </b-modal>
       </div>
       <div v-if="electricianTodo && this.tab === 'Electronics'">
         <Task
@@ -173,7 +272,22 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      mechTodoForm: {
+        title: "",
+        description: "",
+        members: null,
+        attachments: "",
+        dueDate: "",
+        created: "",
+      },
+      mechTodoNameState: null,
+      mechTodoDescriptionState: null,
+      mechTodoMemberState: null,
+      mechTodoDueDateState: null,
+      members: this.$store.state.users,
+      mechTodoShow: true,
+    };
   },
   props: {
     tab: {
@@ -248,6 +362,49 @@ export default {
         if (u.status == "Done") {
           return u;
         }
+      });
+    },
+  },
+  methods: {
+    mechTodoFormValidity() {
+      const valid = this.$refs.mechTodoForm.checkValidity();
+      this.mechTodoNameState = valid;
+      this.mechTodoDescriptionState = valid;
+      this.mechTodoMemberState = valid;
+      this.mechTodoDueDateState = valid;
+      return valid;
+    },
+    handleMechTodo(bvModalEvt) {
+      bvModalEvt.preventDefault();
+      this.submitMechTodo();
+    },
+    submitMechTodo() {
+      if (!this.mechTodoFormValidity()) {
+        return;
+      }
+      let currentDate = new Date();
+      this.mechTodoForm.created = `${currentDate.getFullYear()}-${
+        currentDate.getMonth() + 1
+      }-${currentDate.getDate()}`;
+      console.log(JSON.stringify(this.mechTodoForm));
+      this.$nextTick(() => {
+        this.$bvModal.hide("addMech-todo");
+      });
+    },
+    resetMechTodo() {
+      this.mechTodoForm.title = "";
+      this.mechTodoForm.description = "";
+      this.mechTodoForm.members = null;
+      this.mechTodoForm.attachments = null;
+      this.mechTodoForm.dueDate = "";
+      this.mechTodoForm.created = "";
+      this.mechTodoNameState = null;
+      this.mechTodoDescriptionState = null;
+      this.mechTodoMemberState = null;
+      this.mechTodoDueDateState = null;
+      this.mechTodoShow = false;
+      this.$nextTick(() => {
+        this.mechTodoShow = true;
       });
     },
   },

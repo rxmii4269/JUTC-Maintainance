@@ -37,6 +37,9 @@ export const mutations = {
   setCurrentUser(state, user) {
     state.currentUser = user;
   },
+  addTodoTask(state,task){
+
+  }
 };
 
 export const actions = {
