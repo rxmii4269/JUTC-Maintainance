@@ -18,7 +18,6 @@
           <span v-if="mechanicsTodo.length > 0">another</span> Task</b-button
         >
         <b-modal
-          ref="addMech-todo"
           centered
           id="addMech-todo"
           title="Add Task"
@@ -256,7 +255,105 @@
           ><font-awesome-icon :icon="['fa', 'plus']" /> Add
           <span v-if="custodianTodo.length > 0">another</span> Task</b-button
         >
-        <b-modal id="addCust-todo"></b-modal>
+        <b-modal id="addCust-todo" centered
+          title="Add Task"
+          ok-variant="success"
+          ok-title="Save"
+          cancel-variant="danger"
+          @ok="handleCustTodo"
+          @show="resetCustTodo"
+          @hidden="resetCustTodo">
+          <b-form
+            v-if="custTodoShow"
+            ref="custTodoForm"
+            @submit.stop.prevent="submitCustTodo"
+          >
+            <b-form-group
+              description="Give it a catchy name."
+              :state="custTodoNameState"
+              invalid-feedback="Task Name is required"
+            >
+              <label for="title" class="d-block"
+                ><font-awesome-icon :icon="['fa', 'align-justify']" />
+                Title</label
+              >
+              <b-form-input
+                id="title"
+                v-model="custTodoForm.title"
+                required
+                type="text"
+                placeholder="' Change Oil Filter '"
+                size="sm"
+                :state="custTodoNameState"
+              ></b-form-input>
+            </b-form-group>
+            <b-form-group
+              :state="custTodoDescriptionState"
+              invalid-feedback="Description is required"
+            >
+              <label for="description" class="d-block"
+                ><font-awesome-icon :icon="['fa', 'align-right']" />
+                Description</label
+              >
+              <b-form-textarea
+                v-model="custTodoForm.description"
+                id="description"
+                size="sm"
+                :state="custTodoDescriptionState"
+                required
+              ></b-form-textarea>
+            </b-form-group>
+            <b-form-group
+              :state="custTodoMemberState"
+              invalid-feedback="You must assign task to at least one member"
+            >
+              <label for="custTodoMember" class="d-block"
+                ><font-awesome-icon :icon="['fa', 'users']" /> Assign To</label
+              >
+              <b-form-select
+                v-model="custTodoForm.members"
+                :state="custTodoMemberState"
+                id="custTodoMember"
+                required
+                multiple
+                :select-size="4"
+              >
+                <b-form-select-option :value="null" disabled>
+                  Please select a Member
+                </b-form-select-option>
+                <b-form-select-option
+                  v-for="member in members"
+                  :key="member.id"
+                  :value="member.username"
+                  >{{ member.username }}</b-form-select-option
+                >
+              </b-form-select>
+            </b-form-group>
+            <b-form-group>
+              <label for="custTodoAttachments" class="d-block"
+                ><font-awesome-icon :icon="['fa', 'paperclip']" /> Add
+                Attachments</label
+              >
+              <b-form-file multiple id="custTodoAttachments"></b-form-file>
+            </b-form-group>
+
+            <b-form-group>
+              <label for="custTodoDueDate"
+                ><font-awesome-icon :icon="['fa', 'clock']" /> Due Date</label
+              >
+              <b-form-datepicker
+                v-model="custTodoForm.dueDate"
+                id="custTodoDueDate"
+                right
+                locale="en-US"
+                today-button
+                reset-button
+                close-button
+                :state="custTodoDueDateState"
+              ></b-form-datepicker>
+            </b-form-group>
+          </b-form>
+          </b-modal>
       </div>
     </b-card>
     <b-card title="Doing" title-tag="h5" class="shadow" body-class="pt-2">
@@ -393,6 +490,14 @@ export default {
         dueDate: "",
         created: "",
       },
+      custTodoForm: {
+        title: "",
+        description: "",
+        members: null,
+        attachments: "",
+        dueDate: "",
+        created: "",
+      },
       mechTodoNameState: null,
       mechTodoDescriptionState: null,
       mechTodoMemberState: null,
@@ -401,9 +506,14 @@ export default {
       elecTodoDescriptionState: null,
       elecTodoMemberState: null,
       elecTodoDueDateState: null,
+      custTodoNameState: null,
+      custTodoDescriptionState: null,
+      custTodoMemberState: null,
+      custTodoDueDateState: null,
       members: this.$store.state.users,
       mechTodoShow: true,
       elecTodoShow: true,
+      custTodoShow: true,
     };
   },
   props: {
@@ -499,6 +609,14 @@ export default {
       this.elecTodoDueDateState = valid;
       return valid;
     },
+    custTodoFormValidity(){
+      const valid = this.$refs.custTodoForm.checkValidity();
+      this.custTodoNameState = valid;
+      this.custTodoDescriptionState = valid;
+      this.custTodoMemberState = valid;
+      this.custTodoDueDateState = valid;
+      return valid;
+    },
     handleMechTodo(bvModalEvt) {
       bvModalEvt.preventDefault();
       this.submitMechTodo();
@@ -506,6 +624,10 @@ export default {
     handleElecTodo(bvModalEvt) {
       bvModalEvt.preventDefault();
       this.submitElecTodo();
+    },
+    handleCustTodo(bvModalEvt) {
+      bvModalEvt.preventDefault();
+      this.submitCustTodo();
     },
     submitMechTodo() {
       if (!this.mechTodoFormValidity()) {
@@ -531,6 +653,19 @@ export default {
       console.log(JSON.stringify(this.elecTodoForm));
       this.$nextTick(() => {
         this.$bvModal.hide("addElec-todo");
+      });
+    },
+    submitCustTodo() {
+      if (!this.custTodoFormValidity()) {
+        return;
+      }
+      let currentDate = new Date();
+      this.custTodoForm.created = `${currentDate.getFullYear()}-${
+        currentDate.getMonth() + 1
+      }-${currentDate.getDate()}`;
+      console.log(JSON.stringify(this.custTodoForm));
+      this.$nextTick(() => {
+        this.$bvModal.hide("addCust-todo");
       });
     },
     resetMechTodo() {
@@ -563,6 +698,22 @@ export default {
       this.elecTodoShow = false;
       this.$nextTick(() => {
         this.elecTodoShow = true;
+      });
+    },
+    resetCustTodo() {
+      this.custTodoForm.title = "";
+      this.custTodoForm.description = "";
+      this.custTodoForm.members = null;
+      this.custTodoForm.attachments = null;
+      this.custTodoForm.dueDate = "";
+      this.custTodoForm.created = "";
+      this.custTodoNameState = null;
+      this.custTodoDescriptionState = null;
+      this.custTodoMemberState = null;
+      this.custTodoDueDateState = null;
+      this.custTodoShow = false;
+      this.$nextTick(() => {
+        this.custTodoShow = true;
       });
     },
   },
