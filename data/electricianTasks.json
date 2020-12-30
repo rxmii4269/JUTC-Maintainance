@@ -1,8 +1,8 @@
 {
   "electricianTasks": [
     {
-      "title": "Bus Work",
-      "id": "M01",
+      "title": "Fix Buzzer on Bus #401",
+      "id": "E01",
       "assignee": [],
       "assigner": "",
       "status": "To Do",
@@ -23,8 +23,8 @@
       ]
     },
     {
-      "title": "Install Engine",
-      "id": "M02",
+      "title": "Fix Bell on Bus #233",
+      "id": "E02",
       "assignee": [],
       "assigner": "",
       "status": "Doing",

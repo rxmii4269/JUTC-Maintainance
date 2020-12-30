@@ -4,8 +4,8 @@
       <b-card title="To Do" title-tag="h5" class="shadow" body-class="pt-2">
         <div v-if="mechanicsTodo && this.tab === 'Mechanics'">
           <Task
-            v-for="task in mechanicsTodo"
-            :key="task.id"
+            v-for="(task,index) in mechanicsTodo"
+            :key="index"
             :title="task.title"
             :id="task.id"
             :status="task.status"
@@ -15,7 +15,10 @@
             :assignee="task.assignee"
           />
           <b-button
-            @click="showAddTaskModal(); changeStatus('To Do')"
+            @click="
+              showAddTaskModal();
+              changeStatus('To Do');
+            "
             block
             variant="light"
             size="sm"
@@ -35,7 +38,14 @@
             :date="task.duedate"
             :assignee="task.assignee"
           />
-          <b-button @click="showAddTaskModal('To Do')" block variant="light" size="sm"
+          <b-button
+            @click="
+              showAddTaskModal();
+              changeStatus('To Do');
+            "
+            block
+            variant="light"
+            size="sm"
             ><font-awesome-icon :icon="['fa', 'plus']" /> Add
             <span v-if="electricianTodo.length > 0">another</span>
             Task</b-button
@@ -53,7 +63,14 @@
             :date="task.duedate"
             :assignee="task.assignee"
           />
-          <b-button @click="showAddTaskModal('To Do')" block variant="light" size="sm"
+          <b-button
+            @click="
+              showAddTaskModal();
+              changeStatus('To Do');
+            "
+            block
+            variant="light"
+            size="sm"
             ><font-awesome-icon :icon="['fa', 'plus']" /> Add
             <span v-if="custodianTodo.length > 0">another</span> Task</b-button
           >
@@ -72,7 +89,14 @@
             :date="task.duedate"
             :assignee="task.assignee"
           />
-          <b-button @click="showAddTaskModal" block variant="light" size="sm"
+          <b-button
+            @click="
+              showAddTaskModal();
+              changeStatus('Doing');
+            "
+            block
+            variant="light"
+            size="sm"
             ><font-awesome-icon :icon="['fa', 'plus']" /> Add
             <span v-if="mechanicsDoing.length > 0">another</span> Task</b-button
           >
@@ -89,7 +113,14 @@
             :date="task.duedate"
             :assignee="task.assignee"
           />
-          <b-button @click="showAddTaskModal" block variant="light" size="sm"
+          <b-button
+            @click="
+              showAddTaskModal();
+              changeStatus('Doing');
+            "
+            block
+            variant="light"
+            size="sm"
             ><font-awesome-icon :icon="['fa', 'plus']" /> Add
             <span v-if="electricianDoing.length > 0">another</span>
             Task</b-button
@@ -107,7 +138,14 @@
             :date="task.duedate"
             :assignee="task.assignee"
           />
-          <b-button @click="showAddTaskModal" block variant="light" size="sm"
+          <b-button
+            @click="
+              showAddTaskModal();
+              changeStatus('Doing');
+            "
+            block
+            variant="light"
+            size="sm"
             ><font-awesome-icon :icon="['fa', 'plus']" /> Add
             <span v-if="custodianDoing.length > 0">another</span> Task</b-button
           >
@@ -126,7 +164,14 @@
             :date="task.duedate"
             :assignee="task.assignee"
           />
-          <b-button @click="showAddTaskModal" block variant="light" size="sm"
+          <b-button
+            @click="
+              showAddTaskModal();
+              changeStatus('Done');
+            "
+            block
+            variant="light"
+            size="sm"
             ><font-awesome-icon :icon="['fa', 'plus']" /> Add
             <span v-if="mechanicsDone.length > 0">another</span> Task</b-button
           >
@@ -143,7 +188,14 @@
             :date="task.duedate"
             :assignee="task.assignee"
           />
-          <b-button @click="showAddTaskModal" block variant="light" size="sm"
+          <b-button
+            @click="
+              showAddTaskModal();
+              changeStatus('Done');
+            "
+            block
+            variant="light"
+            size="sm"
             ><font-awesome-icon :icon="['fa', 'plus']" /> Add
             <span v-if="electricianDone.length > 0">another</span>
             Task</b-button
@@ -161,7 +213,14 @@
             :date="task.duedate"
             :assignee="task.assignee"
           />
-          <b-button @click="showAddTaskModal" block variant="light" size="sm"
+          <b-button
+            @click="
+              showAddTaskModal();
+              changeStatus('Done');
+            "
+            block
+            variant="light"
+            size="sm"
             ><font-awesome-icon :icon="['fa', 'plus']" /> Add
             <span v-if="custodianDone.length > 0">another</span> Task</b-button
           >
@@ -178,8 +237,7 @@
       ok-title="Save"
       cancel-variant="danger"
       @ok="handleAddTask"
-      @show="resetAddTask"
-      @hidden="resetAddTask"
+      
     >
       <b-form
         v-if="addTaskShow"
@@ -228,7 +286,7 @@
             ><font-awesome-icon :icon="['fa', 'users']" /> Assign To</label
           >
           <b-form-select
-            v-model="addTaskForm.members"
+            v-model="addTaskForm.assignee"
             :state="memberState"
             id="members"
             required
@@ -259,7 +317,7 @@
             ><font-awesome-icon :icon="['fa', 'clock']" /> Due Date</label
           >
           <b-form-datepicker
-            v-model="addTaskForm.dueDate"
+            v-model="addTaskForm.duedate"
             id="dueDate"
             right
             locale="en-US"
@@ -274,19 +332,23 @@
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
       addTaskForm: {
         title: "",
         description: "",
-        members: null,
+        assignee: [],
+        assigner: "",
+        comments: "",
         attachments: null,
-        dueDate: "",
+        duedate: "",
         created: "",
         status: "",
+        worker: this.tab,
       },
-      status:'',
+      status: "",
       nameState: null,
       descriptionState: null,
       memberState: null,
@@ -308,77 +370,25 @@ export default {
     },
   },
   computed: {
-    mechanicsTodo: function () {
-      return this.$store.state.mechanicTasks.filter(function (u) {
-        if (u.status == "To Do") {
-          return u;
-        }
-      });
-    },
-    mechanicsDoing: function () {
-      return this.$store.state.mechanicTasks.filter(function (u) {
-        if (u.status == "Doing") {
-          return u;
-        }
-      });
-    },
-    mechanicsDone: function () {
-      return this.$store.state.mechanicTasks.filter(function (u) {
-        if (u.status == "Done") {
-          return u;
-        }
-      });
-    },
-    electricianTodo: function () {
-      return this.$store.state.electricianTasks.filter(function (u) {
-        if (u.status == "To Do") {
-          return u;
-        }
-      });
-    },
-    electricianDoing: function () {
-      return this.$store.state.electricianTasks.filter(function (u) {
-        if (u.status == "Doing") {
-          return u;
-        }
-      });
-    },
-    electricianDone: function () {
-      return this.$store.state.electricianTasks.filter(function (u) {
-        if (u.status == "Done") {
-          return u;
-        }
-      });
-    },
-    custodianTodo: function () {
-      return this.$store.state.custodianTasks.filter(function (u) {
-        if (u.status == "To Do") {
-          return u;
-        }
-      });
-    },
-    custodianDoing: function () {
-      return this.$store.state.custodianTasks.filter(function (u) {
-        if (u.status == "Doing") {
-          return u;
-        }
-      });
-    },
-    custodianDone: function () {
-      return this.$store.state.custodianTasks.filter(function (u) {
-        if (u.status == "Done") {
-          return u;
-        }
-      });
-    },
+    ...mapGetters([
+      "mechanicsTodo",
+      "mechanicsDoing",
+      "mechanicsDone",
+      "electricianTodo",
+      "electricianDoing",
+      "electricianDone",
+      "custodianTodo",
+      "custodianDoing",
+      "custodianDone",
+    ]),
   },
   methods: {
     showAddTaskModal() {
       this.$refs["addTaskModal"].show();
     },
-    changeStatus(stat){
+    changeStatus(stat) {
       this.status = stat;
-      console.log(this.status,stat)
+      this.addTaskForm.status = this.status;
     },
     addTaskFormValidity() {
       const valid = this.$refs.addTaskForm.checkValidity();
@@ -401,8 +411,13 @@ export default {
       this.addTaskForm.created = `${currentDate.getFullYear()}-${
         currentDate.getMonth() + 1
       }-${currentDate.getDate()}`;
-      this.addTaskForm.status = this.status;
       console.log(JSON.stringify(this.addTaskForm));
+      if(this.tab==="Mechanics"){
+        let tasks = this.$store.state.mechanicTasks;
+        tasks.push(this.addTaskForm);
+        this.$store.dispatch("addTodoTask",tasks);
+      }
+      
       this.$nextTick(() => {
         this.$bvModal.hide("addTaskModal");
       });
@@ -411,12 +426,12 @@ export default {
     resetAddTask() {
       this.addTaskForm.title = "";
       this.addTaskForm.description = "";
-      this.addTaskForm.members = null;
+      this.addTaskForm.assignee = [];
       this.addTaskForm.attachments = null;
-      this.addTaskForm.dueDate = "";
+      this.addTaskForm.duedate = "";
       this.addTaskForm.created = "";
       this.addTaskForm.status = "";
-      this.status="";
+      this.status = "";
       this.nameState = null;
       this.descriptionState = null;
       this.memberState = null;
