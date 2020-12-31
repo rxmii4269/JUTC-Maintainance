@@ -108,11 +108,44 @@ export const mutations = {
     val.push(task);
     state.mechanicTasks = val;
   },
+  updateTask(state, task) {
+    console.log(task.taskInfo);
+    if (task.tab === "Mechanics") {
+      state.mechanicTasks.forEach((element, index) => {
+        if (element.id === task.taskInfo.id) {
+          state.mechanicTasks[index].status = task.taskInfo.status;
+          state.mechanicTasks[index].duedate = task.taskInfo.dueDate;
+          state.mechanicTasks[index].updated = task.taskInfo.updated;
+        }
+      });
+    } else if (task.tab === "Electronics") {
+      state.electricianTasks.forEach((element, index) => {
+        if (element.id === task.taskInfo.id) {
+          state.electricianTasks[index].status = task.taskInfo.status;
+          state.electricianTasks[index].duedate = task.taskInfo.dueDate;
+          state.electricianTasks[index].updated = task.taskInfo.updated;
+        }
+      });
+    } else {
+      state.custodianTasks.forEach((element, index) => {
+        if (element.id === task.taskInfo.id) {
+          console.log('it does');
+          state.custodianTasks[index].status = task.taskInfo.status;
+          state.custodianTasks[index].duedate = task.taskInfo.dueDate;
+          state.custodianTasks[index].updated = task.taskInfo.updated;
+        }
+      });
+    }
+  },
   updateMechanicsTodo(state, task) {
     task.forEach((element) => {
       if (state.mechanicTasks.includes(element)) {
         let index = state.mechanicTasks.indexOf(element);
+        let currentDate = new Date();
         state.mechanicTasks[index].status = "To Do";
+        state.mechanicTasks[index].updated = `${currentDate.getFullYear()}-${
+          currentDate.getMonth() + 1
+        }-${currentDate.getDate()}`;
       }
     });
   },
@@ -120,7 +153,11 @@ export const mutations = {
     task.forEach((element) => {
       if (state.mechanicTasks.includes(element)) {
         let index = state.mechanicTasks.indexOf(element);
+        let currentDate = new Date();
         state.mechanicTasks[index].status = "Doing";
+        state.mechanicTasks[index].updated = `${currentDate.getFullYear()}-${
+          currentDate.getMonth() + 1
+        }-${currentDate.getDate()}`;
       }
     });
   },
@@ -128,7 +165,11 @@ export const mutations = {
     task.forEach((element) => {
       if (state.mechanicTasks.includes(element)) {
         let index = state.mechanicTasks.indexOf(element);
+        let currentDate = new Date();
         state.mechanicTasks[index].status = "Done";
+        state.mechanicTasks[index].updated = `${currentDate.getFullYear()}-${
+          currentDate.getMonth() + 1
+        }-${currentDate.getDate()}`;
       }
     });
   },
@@ -136,39 +177,59 @@ export const mutations = {
     task.forEach((element) => {
       if (state.electricianTasks.includes(element)) {
         let index = state.electricianTasks.indexOf(element);
+        let currentDate = new Date();
         state.electricianTasks[index].status = "To Do";
+        state.electricianTasks[index].updated = `${currentDate.getFullYear()}-${
+          currentDate.getMonth() + 1
+        }-${currentDate.getDate()}`;
       }
     });
   },
   updateElectricianDoing(state, task) {
     task.forEach((element) => {
       if (state.electricianTasks.includes(element)) {
+        let currentDate = new Date();
         let index = state.electricianTasks.indexOf(element);
         state.electricianTasks[index].status = "Doing";
+        state.electricianTasks[index].updated = `${currentDate.getFullYear()}-${
+          currentDate.getMonth() + 1
+        }-${currentDate.getDate()}`;
       }
     });
   },
   updateElectricianDone(state, task) {
     task.forEach((element) => {
       if (state.electricianTasks.includes(element)) {
+        let currentDate = new Date();
         let index = state.electricianTasks.indexOf(element);
         state.electricianTasks[index].status = "Done";
+        state.electricianTasks[index].updated = `${currentDate.getFullYear()}-${
+          currentDate.getMonth() + 1
+        }-${currentDate.getDate()}`;
       }
     });
   },
   updateCustodianTodo(state, task) {
     task.forEach((element) => {
       if (state.custodianTasks.includes(element)) {
+        let currentDate = new Date();
         let index = state.custodianTasks.indexOf(element);
         state.custodianTasks[index].status = "To Do";
+        state.custodianTasks[index].updated = `${currentDate.getFullYear()}-${
+          currentDate.getMonth() + 1
+        }-${currentDate.getDate()}`;
       }
     });
   },
   updateCustodianDoing(state, task) {
     task.forEach((element) => {
       if (state.custodianTasks.includes(element)) {
+        let currentDate = new Date();
         let index = state.custodianTasks.indexOf(element);
         state.custodianTasks[index].status = "Doing";
+        state.custodianTasks[index].updated = `${currentDate.getFullYear()}-${
+          currentDate.getMonth() + 1
+        }-${currentDate.getDate()}`;
       }
     });
   },
@@ -176,7 +237,11 @@ export const mutations = {
     task.forEach((element) => {
       if (state.custodianTasks.includes(element)) {
         let index = state.custodianTasks.indexOf(element);
+        let currentDate = new Date();
         state.custodianTasks[index].status = "Done";
+        state.custodianTasks[index].updated = `${currentDate.getFullYear()}-${
+          currentDate.getMonth() + 1
+        }-${currentDate.getDate()}`;
       }
     });
   },
@@ -198,5 +263,8 @@ export const actions = {
   },
   addTodoTask({ commit }, task) {
     commit("addTodoTask", task);
+  },
+  updateTask({ commit }, task) {
+    commit("updateTask", task);
   },
 };

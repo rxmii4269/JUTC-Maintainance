@@ -1,18 +1,25 @@
 <template>
-  <div>
+  <div class="item">
     <b-card
       @click="showModal"
       :bg-variant="isHovered ? 'secondary' : 'light'"
       :text-variant="isHovered ? 'light' : ''"
       class="shadow-sm mb-3 mx-0"
+      :class="this.status === 'Done' ? 'done' : ''"
       body-class="p-2"
       v-b-hover="handleHover"
     >
       <b-card-title
         :title="this.title"
-        title-tag="h6"
+        title-tag="h5"
         class="text-capitalize mb-0"
       ></b-card-title>
+      <b-card-sub-title
+        class="mt-2 ml-2"
+        sub-title-tag="span"
+        :sub-title="this.description"
+        :sub-title-text-variant="isHovered ? 'light' : 'secondary'"
+      ></b-card-sub-title>
     </b-card>
 
     <b-modal
@@ -172,8 +179,7 @@
               ></b-card-title>
               <b-col>
                 <b-form-select v-model="selectedStatus" size="sm">
-                  <b-form-select-option :value="null"
-                  disabled
+                  <b-form-select-option :value="null" disabled
                     >Change Status</b-form-select-option
                   >
                   <b-form-select-option
@@ -228,7 +234,7 @@ export default {
     },
     updated: {
       type: String,
-      default: "2020-09-12",
+      default: "",
     },
     date: {
       type: String,
@@ -256,6 +262,9 @@ export default {
         return { comments: [] };
       },
     },
+    tab: {
+      type: String,
+    },
   },
   data() {
     return {
@@ -279,7 +288,19 @@ export default {
     hideModal() {
       this.$refs.taskModal.hide();
     },
-    submitModal() {},
+    submitModal() {
+      let currentDate = new Date();
+      let tab = this.tab;
+      let taskInfo = {
+        id: this.id,
+        status: this.selectedStatus,
+        dueDate: this.selected,
+        updated: `${currentDate.getFullYear()}-${
+          currentDate.getMonth() + 1
+        }-${currentDate.getDate()}`,
+      };
+      this.$store.dispatch("updateTask", { taskInfo, tab });
+    },
     onContext(ctx) {
       this.selected = ctx.selectedYMD;
     },
@@ -310,5 +331,8 @@ export default {
 <style scoped>
 .card {
   cursor: pointer;
+}
+.done {
+  text-decoration: line-through;
 }
 </style>

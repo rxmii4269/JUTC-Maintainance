@@ -1,6 +1,6 @@
 <template>
-  <div>
+  <div class="d-flex flex-column" style="height:100vh">
     <Header />
-    <Nuxt />
+    <Nuxt class="flex-grow-1" />
   </div>
 </template>

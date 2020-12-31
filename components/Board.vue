@@ -20,6 +20,8 @@
               :created="task.created"
               :date="task.duedate"
               :assignee="task.assignee"
+              :tab="tab"
+              :updated="task.updated"
             />
           </draggable>
           <b-button
@@ -52,6 +54,8 @@
               :created="task.created"
               :date="task.duedate"
               :assignee="task.assignee"
+              :tab="tab"
+              :updated="task.updated"
             />
           </draggable>
           <b-button
@@ -85,6 +89,8 @@
               :created="task.created"
               :date="task.duedate"
               :assignee="task.assignee"
+              :tab="tab"
+              :updated="task.updated"
             />
           </draggable>
           <b-button
@@ -119,6 +125,8 @@
               :created="task.created"
               :date="task.duedate"
               :assignee="task.assignee"
+              :tab="tab"
+              :updated="task.updated"
             />
           </draggable>
           <b-button
@@ -151,6 +159,8 @@
               :created="task.created"
               :date="task.duedate"
               :assignee="task.assignee"
+              :tab="tab"
+              :updated="task.updated"
             />
           </draggable>
           <b-button
@@ -184,6 +194,8 @@
               :created="task.created"
               :date="task.duedate"
               :assignee="task.assignee"
+              :tab="tab"
+              :updated="task.updated"
             />
           </draggable>
           <b-button
@@ -218,6 +230,8 @@
               :created="task.created"
               :date="task.duedate"
               :assignee="task.assignee"
+              :tab="tab"
+              :updated="task.updated"
             />
           </draggable>
           <b-button
@@ -250,6 +264,8 @@
               :created="task.created"
               :date="task.duedate"
               :assignee="task.assignee"
+              :tab="tab"
+              :updated="task.updated"
             />
           </draggable>
           <b-button
@@ -283,6 +299,8 @@
               :created="task.created"
               :date="task.duedate"
               :assignee="task.assignee"
+              :tab="tab"
+              :updated="task.updated"
             />
           </draggable>
           <b-button
