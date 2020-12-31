@@ -327,7 +327,6 @@
       ok-title="Save"
       cancel-variant="danger"
       @ok="handleAddTask"
-      @hidden="resetAddTask"
     >
       <b-form
         v-if="addTaskShow"
