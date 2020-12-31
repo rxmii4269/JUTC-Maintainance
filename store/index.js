@@ -79,6 +79,9 @@ export const getters = {
       }
     });
   },
+  mechanicTasks: (state) => {
+    return state.mechanicTasks;
+  },
 };
 
 export const mutations = {
@@ -101,7 +104,81 @@ export const mutations = {
     state.currentUser = user;
   },
   addTodoTask(state, task) {
-      state.mechanicTasks = task;
+    let val = state.mechanicTasks;
+    val.push(task);
+    state.mechanicTasks = val;
+  },
+  updateMechanicsTodo(state, task) {
+    task.forEach((element) => {
+      if (state.mechanicTasks.includes(element)) {
+        let index = state.mechanicTasks.indexOf(element);
+        state.mechanicTasks[index].status = "To Do";
+      }
+    });
+  },
+  updateMechanicsDoing(state, task) {
+    task.forEach((element) => {
+      if (state.mechanicTasks.includes(element)) {
+        let index = state.mechanicTasks.indexOf(element);
+        state.mechanicTasks[index].status = "Doing";
+      }
+    });
+  },
+  updateMechanicsDone(state, task) {
+    task.forEach((element) => {
+      if (state.mechanicTasks.includes(element)) {
+        let index = state.mechanicTasks.indexOf(element);
+        state.mechanicTasks[index].status = "Done";
+      }
+    });
+  },
+  updateElectricianTodo(state, task) {
+    task.forEach((element) => {
+      if (state.electricianTasks.includes(element)) {
+        let index = state.electricianTasks.indexOf(element);
+        state.electricianTasks[index].status = "To Do";
+      }
+    });
+  },
+  updateElectricianDoing(state, task) {
+    task.forEach((element) => {
+      if (state.electricianTasks.includes(element)) {
+        let index = state.electricianTasks.indexOf(element);
+        state.electricianTasks[index].status = "Doing";
+      }
+    });
+  },
+  updateElectricianDone(state, task) {
+    task.forEach((element) => {
+      if (state.electricianTasks.includes(element)) {
+        let index = state.electricianTasks.indexOf(element);
+        state.electricianTasks[index].status = "Done";
+      }
+    });
+  },
+  updateCustodianTodo(state, task) {
+    task.forEach((element) => {
+      if (state.custodianTasks.includes(element)) {
+        let index = state.custodianTasks.indexOf(element);
+        state.custodianTasks[index].status = "To Do";
+      }
+    });
+  },
+  updateCustodianDoing(state, task) {
+    task.forEach((element) => {
+      if (state.custodianTasks.includes(element)) {
+        let index = state.custodianTasks.indexOf(element);
+        state.custodianTasks[index].status = "Doing";
+      }
+    });
+  },
+  updateCustodianDone(state, task) {
+    task.forEach((element) => {
+      if (state.custodianTasks.includes(element)) {
+        let index = state.custodianTasks.indexOf(element);
+        state.custodianTasks[index].status = "Done";
+      }
+    });
   },
 };
 

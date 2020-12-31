@@ -200,7 +200,6 @@
 </template>
 
 <script>
-// import { writeFile } from 'fs-web';
 let self = this;
 export default {
   props: {
@@ -283,7 +282,6 @@ export default {
     submitModal() {},
     onContext(ctx) {
       this.selected = ctx.selectedYMD;
-      // console.log(this.selected);
     },
     handleHover(hovered) {
       this.isHovered = hovered;

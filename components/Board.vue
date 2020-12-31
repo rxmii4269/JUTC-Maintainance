@@ -3,17 +3,25 @@
     <b-card-group deck>
       <b-card title="To Do" title-tag="h5" class="shadow" body-class="pt-2">
         <div v-if="mechanicsTodo && this.tab === 'Mechanics'">
-          <Task
-            v-for="(task,index) in mechanicsTodo"
-            :key="index"
-            :title="task.title"
-            :id="task.id"
-            :status="task.status"
-            :description="task.description"
-            :created="task.created"
-            :date="task.duedate"
-            :assignee="task.assignee"
-          />
+          <draggable
+            class="list-group"
+            v-model="mechanicsTodo"
+            group="people"
+            @start="drag = true"
+            @end="drag = false"
+          >
+            <Task
+              v-for="task in mechanicsTodo"
+              :key="task.id"
+              :title.sync="task.title"
+              :id="task.id"
+              :status="task.status"
+              :description="task.description"
+              :created="task.created"
+              :date="task.duedate"
+              :assignee="task.assignee"
+            />
+          </draggable>
           <b-button
             @click="
               showAddTaskModal();
@@ -27,17 +35,25 @@
           >
         </div>
         <div v-if="electricianTodo && this.tab === 'Electronics'">
-          <Task
-            v-for="task in electricianTodo"
-            :key="task.id"
-            :title="task.title"
-            :id="task.id"
-            :status="task.status"
-            :description="task.description"
-            :created="task.created"
-            :date="task.duedate"
-            :assignee="task.assignee"
-          />
+          <draggable
+            class="list-group"
+            v-model="electricianTodo"
+            group="people"
+            @start="drag = true"
+            @end="drag = false"
+          >
+            <Task
+              v-for="task in electricianTodo"
+              :key="task.id"
+              :title="task.title"
+              :id="task.id"
+              :status="task.status"
+              :description="task.description"
+              :created="task.created"
+              :date="task.duedate"
+              :assignee="task.assignee"
+            />
+          </draggable>
           <b-button
             @click="
               showAddTaskModal();
@@ -52,17 +68,25 @@
           >
         </div>
         <div v-if="custodianTodo && this.tab === 'Custodian'">
-          <Task
-            v-for="task in custodianTodo"
-            :key="task.id"
-            :title="task.title"
-            :id="task.id"
-            :status="task.status"
-            :description="task.description"
-            :created="task.created"
-            :date="task.duedate"
-            :assignee="task.assignee"
-          />
+          <draggable
+            class="list-group"
+            v-model="custodianTodo"
+            group="people"
+            @start="drag = true"
+            @end="drag = false"
+          >
+            <Task
+              v-for="task in custodianTodo"
+              :key="task.id"
+              :title="task.title"
+              :id="task.id"
+              :status="task.status"
+              :description="task.description"
+              :created="task.created"
+              :date="task.duedate"
+              :assignee="task.assignee"
+            />
+          </draggable>
           <b-button
             @click="
               showAddTaskModal();
@@ -78,17 +102,25 @@
       </b-card>
       <b-card title="Doing" title-tag="h5" class="shadow" body-class="pt-2">
         <div v-if="mechanicsDoing && this.tab === 'Mechanics'">
-          <Task
-            v-for="task in mechanicsDoing"
-            :key="task.id"
-            :title="task.title"
-            :id="task.id"
-            :status="task.status"
-            :description="task.description"
-            :created="task.created"
-            :date="task.duedate"
-            :assignee="task.assignee"
-          />
+          <draggable
+            class="list-group"
+            v-model="mechanicsDoing"
+            group="people"
+            @start="drag = true"
+            @end="drag = false"
+          >
+            <Task
+              v-for="task in mechanicsDoing"
+              :key="task.id"
+              :title="task.title"
+              :id="task.id"
+              :status="task.status"
+              :description="task.description"
+              :created="task.created"
+              :date="task.duedate"
+              :assignee="task.assignee"
+            />
+          </draggable>
           <b-button
             @click="
               showAddTaskModal();
@@ -102,17 +134,25 @@
           >
         </div>
         <div v-if="electricianDoing && this.tab === 'Electronics'">
-          <Task
-            v-for="task in electricianDoing"
-            :key="task.id"
-            :title="task.title"
-            :id="task.id"
-            :status="task.status"
-            :description="task.description"
-            :created="task.created"
-            :date="task.duedate"
-            :assignee="task.assignee"
-          />
+          <draggable
+            class="list-group"
+            v-model="electricianDoing"
+            group="people"
+            @start="drag = true"
+            @end="drag = false"
+          >
+            <Task
+              v-for="task in electricianDoing"
+              :key="task.id"
+              :title="task.title"
+              :id="task.id"
+              :status="task.status"
+              :description="task.description"
+              :created="task.created"
+              :date="task.duedate"
+              :assignee="task.assignee"
+            />
+          </draggable>
           <b-button
             @click="
               showAddTaskModal();
@@ -127,17 +167,25 @@
           >
         </div>
         <div v-if="custodianDoing && this.tab === 'Custodian'">
-          <Task
-            v-for="task in custodianDoing"
-            :key="task.id"
-            :title="task.title"
-            :id="task.id"
-            :status="task.status"
-            :description="task.description"
-            :created="task.created"
-            :date="task.duedate"
-            :assignee="task.assignee"
-          />
+          <draggable
+            class="list-group"
+            v-model="custodianDoing"
+            group="people"
+            @start="drag = true"
+            @end="drag = false"
+          >
+            <Task
+              v-for="task in custodianDoing"
+              :key="task.id"
+              :title="task.title"
+              :id="task.id"
+              :status="task.status"
+              :description="task.description"
+              :created="task.created"
+              :date="task.duedate"
+              :assignee="task.assignee"
+            />
+          </draggable>
           <b-button
             @click="
               showAddTaskModal();
@@ -153,17 +201,25 @@
       </b-card>
       <b-card title="Done" title-tag="h5" class="shadow" body-class="pt-2">
         <div v-if="mechanicsDone && this.tab === 'Mechanics'">
-          <Task
-            v-for="task in mechanicsDone"
-            :key="task.id"
-            :title="task.title"
-            :id="task.id"
-            :status="task.status"
-            :description="task.description"
-            :created="task.created"
-            :date="task.duedate"
-            :assignee="task.assignee"
-          />
+          <draggable
+            class="list-group"
+            v-model="mechanicsDone"
+            group="people"
+            @start="drag = true"
+            @end="drag = false"
+          >
+            <Task
+              v-for="task in mechanicsDone"
+              :key="task.id"
+              :title="task.title"
+              :id="task.id"
+              :status="task.status"
+              :description="task.description"
+              :created="task.created"
+              :date="task.duedate"
+              :assignee="task.assignee"
+            />
+          </draggable>
           <b-button
             @click="
               showAddTaskModal();
@@ -177,17 +233,25 @@
           >
         </div>
         <div v-if="electricianDone && this.tab === 'Electronics'">
-          <Task
-            v-for="task in electricianDone"
-            :key="task.id"
-            :title="task.title"
-            :id="task.id"
-            :status="task.status"
-            :description="task.description"
-            :created="task.created"
-            :date="task.duedate"
-            :assignee="task.assignee"
-          />
+          <draggable
+            class="list-group"
+            v-model="electricianDone"
+            group="people"
+            @start="drag = true"
+            @end="drag = false"
+          >
+            <Task
+              v-for="task in electricianDone"
+              :key="task.id"
+              :title="task.title"
+              :id="task.id"
+              :status="task.status"
+              :description="task.description"
+              :created="task.created"
+              :date="task.duedate"
+              :assignee="task.assignee"
+            />
+          </draggable>
           <b-button
             @click="
               showAddTaskModal();
@@ -202,17 +266,25 @@
           >
         </div>
         <div v-if="custodianDone && this.tab === 'Custodian'">
-          <Task
-            v-for="task in custodianDone"
-            :key="task.id"
-            :title="task.title"
-            :id="task.id"
-            :status="task.status"
-            :description="task.description"
-            :created="task.created"
-            :date="task.duedate"
-            :assignee="task.assignee"
-          />
+          <draggable
+            class="list-group"
+            v-model="custodianDone"
+            group="people"
+            @start="drag = true"
+            @end="drag = false"
+          >
+            <Task
+              v-for="task in custodianDone"
+              :key="task.id"
+              :title="task.title"
+              :id="task.id"
+              :status="task.status"
+              :description="task.description"
+              :created="task.created"
+              :date="task.duedate"
+              :assignee="task.assignee"
+            />
+          </draggable>
           <b-button
             @click="
               showAddTaskModal();
@@ -237,11 +309,11 @@
       ok-title="Save"
       cancel-variant="danger"
       @ok="handleAddTask"
-      
+      @hidden="resetAddTask"
     >
       <b-form
         v-if="addTaskShow"
-        ref="addTaskForm"
+        ref="addTaskFormModal"
         @submit.stop.prevent="submitAddTask"
       >
         <b-form-group
@@ -253,8 +325,8 @@
             ><font-awesome-icon :icon="['fa', 'align-justify']" /> Title</label
           >
           <b-form-input
-            id="title"
-            v-model="addTaskForm.title"
+            id="formTitle"
+            v-model.lazy="addTaskForm.title"
             required
             type="text"
             placeholder="' Change Oil Filter '"
@@ -272,7 +344,7 @@
           >
           <b-form-textarea
             v-model="addTaskForm.description"
-            id="description"
+            id="formDescription"
             size="sm"
             :state="descriptionState"
             required
@@ -288,7 +360,7 @@
           <b-form-select
             v-model="addTaskForm.assignee"
             :state="memberState"
-            id="members"
+            id="formMembers"
             required
             multiple
             :select-size="4"
@@ -309,7 +381,7 @@
             ><font-awesome-icon :icon="['fa', 'paperclip']" /> Add
             Attachments</label
           >
-          <b-form-file multiple id="attachments"></b-form-file>
+          <b-form-file multiple id="formAttachments"></b-form-file>
         </b-form-group>
 
         <b-form-group>
@@ -318,7 +390,7 @@
           >
           <b-form-datepicker
             v-model="addTaskForm.duedate"
-            id="dueDate"
+            id="formDueDate"
             right
             locale="en-US"
             today-button
@@ -333,7 +405,11 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+import draggable from "vuedraggable";
 export default {
+  components: {
+    draggable,
+  },
   data() {
     return {
       addTaskForm: {
@@ -346,14 +422,14 @@ export default {
         duedate: "",
         created: "",
         status: "",
-        worker: this.tab,
       },
       status: "",
       nameState: null,
       descriptionState: null,
       memberState: null,
       dueDateState: null,
-
+      id: 2,
+      localMechanicTasks: null,
       members: this.$store.state.users,
       addTaskShow: true,
     };
@@ -368,19 +444,83 @@ export default {
     tab: function (newVal, oldVal) {
       console.log("Prop changed: ", newVal, " | was: ", oldVal);
     },
+    computedMechanicTasks: "addTodo",
   },
   computed: {
-    ...mapGetters([
-      "mechanicsTodo",
-      "mechanicsDoing",
-      "mechanicsDone",
-      "electricianTodo",
-      "electricianDoing",
-      "electricianDone",
-      "custodianTodo",
-      "custodianDoing",
-      "custodianDone",
-    ]),
+    mechanicsTodo: {
+      get() {
+        return this.$store.getters.mechanicsTodo;
+      },
+      set(value) {
+        console.log(value);
+        this.$store.commit("updateMechanicsTodo", value);
+      },
+    },
+    mechanicsDoing: {
+      get() {
+        return this.$store.getters.mechanicsDoing;
+      },
+      set(value) {
+        console.log(value);
+        this.$store.commit("updateMechanicsDoing", value);
+      },
+    },
+    mechanicsDone: {
+      get() {
+        return this.$store.getters.mechanicsDone;
+      },
+      set(value) {
+        this.$store.commit("updateMechanicsDone", value);
+      },
+    },
+    electricianTodo: {
+      get() {
+        return this.$store.getters.electricianTodo;
+      },
+      set(value) {
+        this.$store.commit("updateElectricianTodo", value);
+      },
+    },
+    electricianDoing: {
+      get() {
+        return this.$store.getters.electricianDoing;
+      },
+      set(value) {
+        this.$store.commit("updateElectricianDoing", value);
+      },
+    },
+    electricianDone: {
+      get() {
+        return this.$store.getters.electricianDone;
+      },
+      set(value) {
+        this.$store.commit("updateElectricianDone", value);
+      },
+    },
+    custodianTodo: {
+      get() {
+        return this.$store.getters.custodianTodo;
+      },
+      set(value) {
+        this.$store.commit("updateCustodianTodo", value);
+      },
+    },
+    custodianDoing: {
+      get() {
+        return this.$store.getters.custodianDoing;
+      },
+      set(value) {
+        this.$store.commit("updateCustodianDoing", value);
+      },
+    },
+    custodianDone: {
+      get() {
+        return this.$store.getters.custodianDone;
+      },
+      set(value) {
+        this.$store.commit("updateCustodianDone", value);
+      },
+    },
   },
   methods: {
     showAddTaskModal() {
@@ -388,10 +528,9 @@ export default {
     },
     changeStatus(stat) {
       this.status = stat;
-      this.addTaskForm.status = this.status;
     },
     addTaskFormValidity() {
-      const valid = this.$refs.addTaskForm.checkValidity();
+      const valid = this.$refs.addTaskFormModal.checkValidity();
       this.nameState = valid;
       this.descriptionState = valid;
       this.memberState = valid;
@@ -412,14 +551,16 @@ export default {
         currentDate.getMonth() + 1
       }-${currentDate.getDate()}`;
       console.log(JSON.stringify(this.addTaskForm));
-      if(this.tab==="Mechanics"){
-        let tasks = this.$store.state.mechanicTasks;
-        tasks.push(this.addTaskForm);
-        this.$store.dispatch("addTodoTask",tasks);
+      this.addTaskForm.status = this.status;
+      if (this.tab === "Mechanics") {
+        this.id++;
+        this.addTaskForm["id"] = "M0" + this.id;
+        this.$store.dispatch("addTodoTask", this.addTaskForm);
       }
-      
+
       this.$nextTick(() => {
         this.$bvModal.hide("addTaskModal");
+        console.log(this.$bvModal);
       });
     },
 
@@ -442,6 +583,11 @@ export default {
         this.addTaskShow = true;
       });
     },
+  },
+  mounted: function () {
+    if (this.mechanicTasks) {
+      this.localMechanicTasks = this.mechanicTasks;
+    }
   },
 };
 </script>
