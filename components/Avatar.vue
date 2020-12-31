@@ -29,11 +29,9 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.state.authenticated = false;
       sessionStorage.removeItem("username");
       sessionStorage.removeItem("authenticated");
-      this.$router.push("/");
-      
+      location.reload();
       
       
     },
