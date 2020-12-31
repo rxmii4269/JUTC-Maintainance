@@ -3,25 +3,15 @@
     <b-avatar></b-avatar>
     <b-nav-item-dropdown id="nav7_ddown" right>
       <b-dropdown-item>
-        <h6 class="text-capitalize">{{this.currentUser.username}}</h6>
+        <h6 class="text-capitalize">{{ this.currentUser.username }}</h6>
       </b-dropdown-item>
-      <b-dropdown-item
-        ><NuxtLink
-          class="text-dark"
-          to="/logout"
-          v-if="isAuthenticated"
-          >Logout</NuxtLink
-        >
-        <NuxtLink class="" to="/" v-else
-          >Login</NuxtLink
-        ></b-dropdown-item
-      >
+      <b-dropdown-item @click="logout">Logout</b-dropdown-item>
     </b-nav-item-dropdown>
   </b-nav>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 
 export default {
   data() {
@@ -32,14 +22,27 @@ export default {
       isAuthenticated: (state) => state.authenticated,
     }),
     currentUser() {
-      return this.$store.getters.loggedInUser(sessionStorage.getItem('username'));
+      return this.$store.getters.loggedInUser(
+        sessionStorage.getItem("username")
+      );
+    },
+  },
+  methods: {
+    logout() {
+      this.$store.state.authenticated = false;
+      sessionStorage.removeItem("username");
+      sessionStorage.removeItem("authenticated");
+      this.$router.push("/");
+      
+      
+      
     },
   },
 };
 </script>
 
 <style>
-#nav7_ddown__BV_toggle_{
+#nav7_ddown__BV_toggle_ {
   color: #ffffff;
 }
 </style>
