@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-card-group deck>
-      <b-card title="To Do" title-tag="h5" class="shadow" body-class="pt-2">
+      <b-card title="To Do" title-tag="h4" class="shadow" body-class="pt-2">
         <div v-if="mechanicsTodo && this.tab === 'Mechanics'">
           <draggable
             class="list-group"
@@ -31,7 +31,7 @@
             "
             block
             variant="light"
-            size="sm"
+            size="lg"
             ><font-awesome-icon :icon="['fa', 'plus']" /> Add
             <span v-if="mechanicsTodo.length > 0">another</span> Task</b-button
           >
@@ -65,7 +65,7 @@
             "
             block
             variant="light"
-            size="sm"
+            size="lg"
             ><font-awesome-icon :icon="['fa', 'plus']" /> Add
             <span v-if="electricianTodo.length > 0">another</span>
             Task</b-button
@@ -100,13 +100,13 @@
             "
             block
             variant="light"
-            size="sm"
+            size="lg"
             ><font-awesome-icon :icon="['fa', 'plus']" /> Add
             <span v-if="custodianTodo.length > 0">another</span> Task</b-button
           >
         </div>
       </b-card>
-      <b-card title="Doing" title-tag="h5" class="shadow" body-class="pt-2">
+      <b-card title="Doing" title-tag="h4" class="shadow" body-class="pt-2">
         <div v-if="mechanicsDoing && this.tab === 'Mechanics'">
           <draggable
             class="list-group"
@@ -136,7 +136,7 @@
             "
             block
             variant="light"
-            size="sm"
+            size="lg"
             ><font-awesome-icon :icon="['fa', 'plus']" /> Add
             <span v-if="mechanicsDoing.length > 0">another</span> Task</b-button
           >
@@ -170,7 +170,7 @@
             "
             block
             variant="light"
-            size="sm"
+            size="lg"
             ><font-awesome-icon :icon="['fa', 'plus']" /> Add
             <span v-if="electricianDoing.length > 0">another</span>
             Task</b-button
@@ -205,13 +205,13 @@
             "
             block
             variant="light"
-            size="sm"
+            size="lg"
             ><font-awesome-icon :icon="['fa', 'plus']" /> Add
             <span v-if="custodianDoing.length > 0">another</span> Task</b-button
           >
         </div>
       </b-card>
-      <b-card title="Done" title-tag="h5" class="shadow" body-class="pt-2">
+      <b-card title="Done" title-tag="h4" class="shadow" body-class="pt-2">
         <div v-if="mechanicsDone && this.tab === 'Mechanics'">
           <draggable
             class="list-group"
@@ -241,7 +241,7 @@
             "
             block
             variant="light"
-            size="sm"
+            size="lg"
             ><font-awesome-icon :icon="['fa', 'plus']" /> Add
             <span v-if="mechanicsDone.length > 0">another</span> Task</b-button
           >
@@ -275,7 +275,7 @@
             "
             block
             variant="light"
-            size="sm"
+            size="lg"
             ><font-awesome-icon :icon="['fa', 'plus']" /> Add
             <span v-if="electricianDone.length > 0">another</span>
             Task</b-button
@@ -310,7 +310,7 @@
             "
             block
             variant="light"
-            size="sm"
+            size="lg"
             ><font-awesome-icon :icon="['fa', 'plus']" /> Add
             <span v-if="custodianDone.length > 0">another</span> Task</b-button
           >
@@ -347,7 +347,7 @@
             required
             type="text"
             placeholder="' Change Oil Filter '"
-            size="sm"
+            size="lg"
             :state="nameState"
           ></b-form-input>
         </b-form-group>
@@ -362,7 +362,7 @@
           <b-form-textarea
             v-model="addTaskForm.description"
             id="formDescription"
-            size="sm"
+            size="lg"
             :state="descriptionState"
             required
           ></b-form-textarea>

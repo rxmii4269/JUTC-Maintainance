@@ -11,7 +11,7 @@
     >
       <b-card-title
         :title="this.title"
-        title-tag="h5"
+        title-tag="h4"
         class="text-capitalize mb-0"
       ></b-card-title>
       <b-card-sub-title
