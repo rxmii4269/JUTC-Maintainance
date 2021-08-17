@@ -18,7 +18,7 @@
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.16.1",
-    "nuxt": "^2.15.7",
+    "nuxt": "^2.15.8",
     "vuedraggable": "^2.24.3"
   },
   "devDependencies": {
