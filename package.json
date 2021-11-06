@@ -17,22 +17,22 @@
     "@nuxtjs/axios": "^5.13.6",
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.21.2",
-    "core-js": "^3.18.3",
+    "core-js": "^3.19.1",
     "nuxt": "^2.15.8",
     "vuedraggable": "^2.24.3"
   },
   "devDependencies": {
-    "@nuxtjs/eslint-config": "^6.0.1",
+    "@nuxtjs/eslint-config": "^7.0.0",
     "@nuxtjs/eslint-module": "^3.0.2",
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.32.0",
+    "eslint": "^8.2.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.2",
-    "eslint-plugin-nuxt": "^2.0.0",
+    "eslint-plugin-nuxt": "^3.0.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-vue": "^7.20.0",
+    "eslint-plugin-vue": "^8.0.3",
     "prettier": "^2.4.1",
-    "sass": "^1.42.1",
     "sass-loader": "^12.3.0"
+    "sass": "^1.43.4",
   }
 }
